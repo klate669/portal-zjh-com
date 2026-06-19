@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://klate669.github.io/portal-zjh-com/sitemap.xml

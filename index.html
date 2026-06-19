@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>杂志专题 · 炸金花</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f3f7fc;
+            color: #1d2b3c;
+            line-height: 1.7;
+            padding: 0 1.2rem 3rem;
+            min-height: 100vh;
+        }
+
+        .magazine-cover {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        /* 首页横幅 - 杂志感大标题区 */
+        .hero {
+            padding: 3.5rem 0 2.8rem;
+            border-bottom: 2px solid #cfe1ef;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .hero-title-group {
+            max-width: 70%;
+        }
+
+        .hero-sup {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: #4082a0;
+            text-transform: uppercase;
+            background: #e2eef7;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: #103446;
+        }
+
+        .hero h1 span {
+            color: #1d7a9c;
+        }
+
+        .hero-tagline {
+            font-size: 1rem;
+            color: #2f5f75;
+            margin-top: 0.6rem;
+            border-left: 4px solid #2e9ab0;
+            padding-left: 1rem;
+            font-style: italic;
+        }
+
+        .hero-visual {
+            display: flex;
+            gap: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-visual span {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px 2px 12px 2px;
+            background: linear-gradient(145deg, #b8dae8, #7bb6ce);
+            opacity: 0.7;
+            transform: rotate(5deg);
+        }
+
+        .hero-visual span:nth-child(2) {
+            background: #2b889f;
+            opacity: 0.9;
+            transform: rotate(-3deg);
+        }
+
+        .hero-visual span:nth-child(3) {
+            background: #bedae9;
+            opacity: 0.6;
+        }
+
+        /* 网格卡片布局 —— 杂志专题三段式 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2.2rem 0 2.8rem;
+        }
+
+        @media (min-width: 680px) {
+            .grid-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 940px) {
+            .grid-cards {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card-item {
+            background: white;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem 2rem;
+            box-shadow: 0 8px 24px rgba(23, 78, 100, 0.06);
+            border: 1px solid #deecf3;
+            transition: box-shadow 0.2s, transform 0.15s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-item:hover {
+            box-shadow: 0 12px 32px rgba(27, 100, 130, 0.10);
+            transform: translateY(-3px);
+        }
+
+        .card-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #528aa3;
+            background: #e0eff7;
+            display: inline-block;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            align-self: flex-start;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-item h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a4257;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card-item h2 small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #558aa0;
+            margin-left: 0.3rem;
+        }
+
+        .card-item p {
+            font-size: 0.96rem;
+            color: #264e62;
+            margin-bottom: 0.8rem;
+            flex: 1;
+        }
+
+        .card-item .meta-note {
+            font-size: 0.82rem;
+            color: #5f859b;
+            border-top: 1px dashed #c6dbe9;
+            padding-top: 0.9rem;
+            margin-top: auto;
+        }
+
+        .inline-link-card {
+            display: inline;
+            color: #1c7f9e;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 2px solid #9cc9de;
+            transition: border-color 0.2s, background 0.15s;
+        }
+
+        .inline-link-card:hover {
+            border-bottom-color: #1c7f9e;
+            background: #e3f0f8;
+        }
+
+        /* 背景说明区块 (杂志注释) */
+        .background-note {
+            background: #e1eef7;
+            border-radius: 40px;
+            padding: 2rem 2rem 1.8rem;
+            margin: 1.2rem 0 2.8rem;
+            border-left: 6px solid #2b95af;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .background-note blockquote {
+            font-size: 1rem;
+            color: #15485e;
+            max-width: 70%;
+            font-weight: 400;
+            quotes: "“" "”" "‘" "’";
+        }
+
+        .background-note blockquote::before {
+            content: "“";
+            font-size: 2.2rem;
+            color: #307e99;
+            line-height: 0;
+            vertical-align: -0.4rem;
+            margin-right: 6px;
+        }
+
+        .background-note .badge-tip {
+            background: #ffffffd9;
+            padding: 0.3rem 1.6rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #1d5a72;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            white-space: nowrap;
+        }
+
+        .background-note .badge-tip i {
+            font-style: normal;
+            margin-right: 0.3rem;
+        }
+
+        /* FAQ摘要 — 垂直卡片 */
+        .faq-digest {
+            background: #ffffffd9;
+            border-radius: 32px;
+            padding: 1.6rem 1.8rem 1.8rem;
+            margin: 2.2rem 0 2.5rem;
+            border: 1px solid #d4e4f0;
+            box-shadow: 0 4px 16px rgba(33, 91, 117, 0.04);
+        }
+
+        .faq-digest h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1f526a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-digest h3::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, #b5d3e5, transparent);
+        }
+
+        .faq-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 0.8rem;
+            margin-top: 0.6rem;
+        }
+
+        .faq-item {
+            background: #f0f6fb;
+            padding: 0.5rem 1.2rem 0.5rem 1rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #1a5068;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid #d0e2ef;
+        }
+
+        .faq-item strong {
+            font-weight: 600;
+            color: #1f6b89;
+        }
+
+        .faq-item .q-symbol {
+            background: #b3d3e6;
+            color: #10323f;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* 页尾访问提示 */
+        .page-footer-note {
+            margin-top: 3rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid #c7dceb;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .page-footer-note .footer-text {
+            color: #2f5b6f;
+            font-size: 0.95rem;
+        }
+
+        .page-footer-note .footer-text a {
+            color: #1c7a9a;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #a7cde0;
+            transition: 0.15s;
+        }
+
+        .page-footer-note .footer-text a:hover {
+            border-bottom-color: #1f6b84;
+            background: #ddedf7;
+        }
+
+        .footer-stamp {
+            font-size: 0.7rem;
+            color: #60879b;
+            letter-spacing: 0.05em;
+            background: #e2eef7;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+
+        /* 移动端细节 */
+        @media (max-width: 600px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.2rem;
+                padding: 2rem 0 1.6rem;
+            }
+            .hero-title-group {
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-visual {
+                align-self: flex-start;
+                margin-top: 0.2rem;
+            }
+            .background-note {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .background-note blockquote {
+                max-width: 100%;
+            }
+            .faq-row {
+                flex-direction: column;
+            }
+            .faq-item {
+                width: fit-content;
+            }
+            .page-footer-note {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* 小点缀 */
+        .dot-accent {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #3193ae;
+            border-radius: 50%;
+            margin: 0 0.35rem 0 0.1rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div class="magazine-cover">
+    <!-- hero 首页横幅 -->
+    <header class="hero">
+        <div class="hero-title-group">
+            <div class="hero-sup">专题 · 纸牌博弈</div>
+            <h1><span>炸</span>金花 · 从容对局</h1>
+            <div class="hero-tagline">一种基于手牌与胆识的经典规则</div>
+        </div>
+        <div class="hero-visual">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- 背景说明 (杂志式注释)  -->
+    <div class="background-note">
+        <blockquote>
+            在诸多纸牌游戏中，<strong>炸金花</strong>以其简单的牌型比较和限时决策著称。
+            它不需要繁复的记牌，但很考验参与者的判断与节奏感。
+        </blockquote>
+        <div class="badge-tip"><i>✦</i> 娱乐 · 专注过程</div>
+    </div>
+
+    <!-- 三段自然介绍 · 网格卡片 -->
+    <div class="grid-cards">
+        <article class="card-item">
+            <div class="card-number">01</div>
+            <h2>从牌局到日常</h2>
+            <p>
+                很多人第一次接触<a href="https://portal-zjh.com" class="inline-link-card">炸金花</a>是在朋友聚会或线上小聚中。
+                一局牌往往包含着心理上的试探和短暂的松弛，这种轻对抗让参与者更容易投入当下。
+            </p>
+            <div class="meta-note">牌型组合 · 豹子、同花顺、金花……</div>
+        </article>
+
+        <article class="card-item">
+            <div class="card-number">02</div>
+            <h2>规则之外的稳定感</h2>
+            <p>
+                无论你是刚了解花色大小，还是已然熟悉加注节奏，<a href="https://portal-zjh.com" class="inline-link-card">炸金花</a>的底层逻辑始终是清晰的：每轮选择都在自己的节奏里。
+                这种结构让游戏始终保有一种“可预期”的安定感。
+            </p>
+            <div class="meta-note">比较 · 弃牌 · 跟注 · 加注</div>
+        </article>
+
+        <article class="card-item">
+            <div class="card-number">03</div>
+            <h2>不止于胜负</h2>
+            <p>
+                当你熟悉了基本规则，你会发现牌面的偶然性带来的不只是输赢，还有一种特别的叙事感。
+                不少参与者将<a href="https://portal-zjh.com" class="inline-link-card">炸金花</a>作为一种短暂的自我调节——牌桌上的几分钟，注意力全然集中在手牌与对手的表情上。
+            </p>
+            <div class="meta-note">节奏 · 手牌 · 观察</div>
+        </article>
+    </div>
+
+    <!-- FAQ 摘要（杂志式常见问题卡片） -->
+    <div class="faq-digest">
+        <h3>❓ 常见问题摘要</h3>
+        <div class="faq-row">
+            <span class="faq-item"><span class="q-symbol">Q</span> 牌型从大到小？</span>
+            <span class="faq-item"><span class="q-symbol">Q</span> 235 能管豹子吗？</span>
+            <span class="faq-item"><span class="q-symbol">Q</span> 闷牌和看牌区别</span>
+            <span class="faq-item"><span class="q-symbol">Q</span> 场次可自己约定上限</span>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.85rem; color: #3d6e83; border-left: 2px solid #a2c9de; padding-left: 0.8rem;">
+            具体规则以平台或房间设定为准，<a href="https://portal-zjh.com" class="inline-link-card">炸金花</a>相关页面提供基本说明与玩法框架。
+        </div>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <footer class="page-footer-note">
+        <div class="footer-text">
+            <span class="dot-accent"></span>
+            如果你想了解更多关于牌型、策略或仅仅是重温规则，
+            可以前往 <a href="https://portal-zjh.com">炸金花</a> 专题页面，那里保持着一份简明而完整的资料。
+        </div>
+        <div class="footer-stamp">magazine · 2025</div>
+    </footer>
+</div>
+</body>
+</html>
